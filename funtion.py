@@ -153,43 +153,119 @@ def verificador_fecha():
         fecha = input()
         try:
             string = datetime.strptime(fecha , '%d/%m/%Y --- %H:%M')
+            fecha_hoy = datetime.today()
+            if string < fecha_hoy:
+                print('Esta fecha es anterior al dia de hoy. Vuelve a introducirla.')
+                continue
             return fecha
         except Exception:
             print('Ha Habido un error. Introduce una fecha en el formato solicitado')
 
-def verificador_validez_nuevo_evento(evento, user): ###chequear si no hay colision de eventos o restricciones de recursos
+def verificador_restricciones(evento): ### chequea especificamente las restricciones solitarias
     for recursos in evento.Recursos:
-        for restr, mssg in evento.Restriction_recursos.items():
-            if recursos.nombre == restr:
+        for restr, mssg in evento.Restriction_recursos.items(): ###ve las restricciones que hay y si coinciden con los nombre
+            if recursos.nombre == restr:                        ### de los recursos
                 print(f'{recursos.nombre + ' '+ mssg} ')
                 return False
-        for tupla_restr in evento.Restriction_recursos_pares:
-            pass
-    
+    return True
 
-def agrego_eventos(option, recursos_disponibles, user): ###Agregar eventos
+def verificador_restricciones_tuplas(evento): ###chequea especificamente las restricciones en tuplas
+    lista_nombres_recursos = []
+    for recursos in evento.Recursos:
+        lista_nombres_recursos.append(recursos.nombre) ### tomo todos los nombres de los recursos que se agregaron
+    
+    for idx, tupla_restriccion in enumerate(evento.Restriction_recursos_pares):  
+        if set(tupla_restriccion) <= set(lista_nombres_recursos):  ### comparo si la tupla restringida esta dentro de los nombres
+            print(f'{dividir_lista_str(tupla_restriccion)} no pueden estar juntos, {evento.message[idx]}')
+            return False
+    return True
+
+
+def verificador_necesarias (evento): ###chquea si cumple con los recursos necesarios
+    lista_nombres_recursos = []
+    for recursos in evento.Recursos:
+        lista_nombres_recursos.append(recursos.nombre) ### tomo todos los nombres de los recursos que se agregaron
+        lista_nombres_recursos.append(recursos.categoria) ### y las categorias tambien
+
+    if set(evento.Needs) <= set(lista_nombres_recursos): ### verifica si las necesidades estan dentro de los recursos
+        return True
+    print('Te faltan recursos necesarios para empezar el evento.')
+    return False
+
+def verificador_horarios_adecuados (evento): ###chequea si esta en el intervalo de tiempo en el que se puede iniciar este evento
+    tiempo = evento.fecha.time()
+    if tiempo < evento.Restriction_hour[0]: 
+        print('Estas intentando hacerlo muy temprano. No madruges tanto.')
+        print(f'Propon el mismo evento sobre las {evento.Restriction_hour[0]}')
+        return False
+    elif tiempo > evento.Restriction_hour[1]:
+        print('Estas intentando hacerlo demasiado tarde. Mejor duerme a esa hora.')
+        print(f'Propon el mismo evento sobre las {evento.Restriction_hour[1]}')
+        return False
+    return True
+
+def verificador_validez_nuevo_evento(evento): ###llama a todas las funciones que chequean que el evento pueda agregarse
+    restricciones_solitarias = verificador_restricciones(evento)
+    restricciones_tuplas = verificador_restricciones_tuplas(evento)  ### todos devuelven False si el evento incumple algo
+    recursos_necesarios = verificador_necesarias(evento)
+    horario_adecuado = verificador_horarios_adecuados(evento)
+    if not recursos_necesarios or not horario_adecuado or not restricciones_solitarias or not restricciones_tuplas:
+        return False
+    else:
+        return True
+
+def actualizacion_recursos_disponibles(evento, recursos_disponibles): ### Actualiza los recursos (los quita especificamente de los q se usan un nuevo evento)
+    lista_nombres_recursos_evento = [] ### se ubicaran los recursos que se usan en el evento
+    nuevos_recursos_disponibles = []
+    
+    for recursos in evento.Recursos:
+        lista_nombres_recursos_evento.append(recursos.nombre)
+    
+    for recursos_disp in recursos_disponibles:
+        if recursos_disp.nombre in lista_nombres_recursos_evento:
+            continue
+        nuevos_recursos_disponibles.append(recursos_disp)
+    return nuevos_recursos_disponibles
+
+
+def agrego_eventos(option, recursos_disponibles, user: User): ###Agregar eventos
     print('Dime los Recursos que emplearas para este Evento.')
     if option == 1:
         
         even_temporal = Events.travel_Habana('10/10/2005 --- 12:40', 1) ###inicializo una instancia cualquiera temporal
         restr1, restr2 = even_temporal.Restriction_recursos_pares
-        lista_recursos = []
+        lista_recursos = [] ### aqui iran los recursos que el usuario decida
 
         print(f'Este en especifico necesita de {dividir_lista_str(even_temporal.Needs)}. \nTambien en este viaje\
  no pueden estar juntos {dividir_lista_str(restr1)} o {dividir_lista_str(restr2)}')
         print('Toma los que necesites.')
-        print('Escribe salir para avisar que ya terminaste.')
+        print('Escribe 0 para avisar que ya terminaste.')
         
-        for idx, recurso in enumerate(recursos_disponibles):
+        for idx, recurso in enumerate(recursos_disponibles): ### muestra los recursos disponibles
             print(f'{idx+1}. {recurso.nombre} es un {recurso.categoria}')
         while True:
-            input_user = try_option(len(recursos_disponibles))
+            input_user = try_option(len(recursos_disponibles), 0)
             lista_recursos.append(recursos_disponibles[input_user - 1])
-            if input_user == 'salir':
+            if input_user == 0:  ### el usuario elige entre todos los recursos disponibles
                 break
+        
         print('Y para cuando lo deseas?')
-        fecha = verificador_fecha()
-        evento_final = Events.travel_Habana(fecha, *lista_recursos)
+        fecha = verificador_fecha() ### verifica que la fecha este en el formato correcto
+        evento_final = Events.travel_Habana(fecha, *lista_recursos) ### crea el evento
+        
+        if verificador_validez_nuevo_evento(evento_final): ###verifica si no tiene problemas y lo agrega a los eventos del usuario
+            user.events.append(evento_final)
+            print('Se ha agregado el evento a la agenda.')
+            recursos_disponibles = actualizacion_recursos_disponibles(evento_final, recursos_disponibles) ### actualizo los recursos disponibles
+            del even_temporal
+            del evento_final
+            return user, recursos_disponibles
+        else:
+            print('El evento no se ha agendado por incumplir ciertos parametros. Vuelva a intentarlo.')
+            del even_temporal
+            del evento_final
+            return None
+
 
     elif option == 2:
         pass

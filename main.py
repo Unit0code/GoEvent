@@ -27,30 +27,36 @@ while True:
             print('1. Si \n2. No \n3. Ir al menu principal.')
             option = funtion.try_option(3)
             if option == 1:
+                Usuario = user.User(name_user, passw, name_user, []) ### creo el usuario
                 print(f'Bienvenido {name_user}')
-                print('Que deseas?')
-                print('1. Agregar Eventos a tu agenda.')
-                print('2. Eliminar Eventos de tu agenda.')
-                print('3. Ver los Eventos agendados.')
-                print('4. Ver los Recursos y su disponibilidad.')
-                print('5. Salir al menu principal.')
+                while True:
+                    print('Que deseas?')
+                    print('1. Agregar Eventos a tu agenda.') ################### agregar nuevos eventos ????
+                    print('2. Eliminar Eventos de tu agenda.') 
+                    print('3. Ver los Eventos agendados.')
+                    print('4. Ver los Recursos y su disponibilidad.')
+                    print('5. Actualizar Agenda.')
+                    print('6. Salir al menu principal.')
 
-                option = funtion.try_option(5)
-                if option == 1: ### ver los eventos
-                    print('Tienes para agregar:')
-                    funtion.printeo_opciones_eventos()
-                    option = funtion.try_option(11)
-                    ### funcion qe dentro se encarge de llamar a otras funciones y que finalmente agrege ese evento si no incumple nada
-                
-                
-                elif option == 2:
-                    pass
-                elif option == 3:
-                    pass
-                elif option == 4:
-                    pass
-                elif option == 5:
-                    pass
+                    option = funtion.try_option(6)
+                    if option == 1: ### ver los eventos
+                        print('Tienes para agregar:')
+                        funtion.printeo_opciones_eventos()
+                        option = funtion.try_option(11)
+                        Usuario, Recursos_disponibles = funtion.agrego_eventos(option, Recursos_disponibles, Usuario)
+                    
+                    
+                    elif option == 2:
+                        pass
+                    elif option == 3:
+                        pass
+                    elif option == 4:
+                        pass
+                    elif option == 5:
+                        pass
+                    elif option == 6:
+                        ###guardar el perfil
+                        break
             
             elif option == 2: ### Va a la sgt iteracion del bucle.
                 continue
