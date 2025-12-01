@@ -49,19 +49,28 @@ while True:
                             pass
 
                     elif option == 2:
-                        pass
-                    
+                        print('Veamos cuales tienes y puedes eliminar.')
+                        Usuario, Recursos_disponibles = funtion.eliminar_eventos(Usuario, Recursos_disponibles) ### se encarga de eliminar eventos.
+
                     elif option == 3:
-                        pass
+                        print('Los Eventos agendados hasta el momento son:')
+                        funtion.mostras_eventos(Usuario) ### indexa en los eventos con un for y los printea
                     
                     elif option == 4:
-                        pass
+                        print('Los recursos disponibles en este momento son:')
+                        funtion.mostrar_recursos(Recursos_disponibles)
                     
                     elif option == 5:
-                        pass
-                    
+                        print('Veamos si no hay ningun Evento que ya haya expirado.')
+                        try:
+                            Usuario, Recursos_disponibles = funtion.verificador_estado_eventos(Usuario, Recursos_disponibles)
+                        except Exception:
+                            pass
+
                     elif option == 6:
-                        ###guardar el perfil
+                        print('Primero, guardemos el perfil, para asegurarnos de que no se pierda la info.')
+                        funtion.guardar_json(Usuario)
+                        
                         break
             
             elif option == 2: ### Va a la sgt iteracion del bucle.
@@ -70,7 +79,7 @@ while True:
                 break
             
             if option == 6: ###Esta opcion solo entrara en ella cuando haya estado ya en la cuenta
-                break       ### y haya posterior a eso
+                break       ### y haya posterior a eso salido.
 
 
     elif option == 2:

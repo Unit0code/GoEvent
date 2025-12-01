@@ -458,3 +458,64 @@ def agrego_eventos(option, recursos_disponibles, user: User): ###Agregar eventos
         except Exception:
             pass
         return user, recursos_disponibles
+
+def eliminar_eventos (user: User, recursos_disponibles): ###eliminara un evento de los agregados en el atributo eventos del user
+    for idx, eventos in enumerate(user.events):
+        print(f'{idx+1}. {eventos.__dict__()}')
+    print('Cual desea eliminar?')
+    option = try_option(len(user.events))
+    print(f'Deseas eliminar {user.events[option - 1]}??')
+    print('1. Si.')
+    print('2. No')
+    option = try_option(2) 
+    if option == 1:
+        recursos_disponibles = cargar_recursos_disponibles(recursos_disponibles, [user.events[option-1]]) # pone en disponibilidad
+        del user.events[option - 1]                                                     ### los recursos del evento que sera eliminado
+        return user, recursos_disponibles
+    else:
+        print('Ok. Entonces volvamos.')
+        return user
+
+def mostras_eventos(user: User):
+    for idx, evento in enumerate(user.events):
+        print(f'{idx + 1}. {evento.__dict__()}')
+
+def mostrar_recursos(recursos_disponibles):
+    for idx, recurso in enumerate(recursos_disponibles):
+        print(f'{idx + 1}. {recurso.__dict__()}')
+
+def verificador_estado_eventos (user: User, recursos_disponibles):
+    
+    eventos_expirados = []
+    fecha_hoy = datetime.today() ###creo la fecha de ese momento
+
+    for idx, eventos in enumerate(user.events):  
+        if eventos.Finish_date < fecha_hoy: ###chequeo si la fecha ya es pasada
+            eventos_expirados.append(eventos) ###La agrego a eventos expirados
+            print(f'Expiro {eventos.name}.')
+    
+    if not eventos_expirados: ###si la lista esta vacia solo regresara False
+        print('No ha expirado ningun evento.')
+        return False
+    
+    for evento in eventos_expirados:
+        idx = user.events.index(evento)
+        del user.events[idx] ### lo elimino de los atributos del usuario
+    recursos_disponibles = cargar_recursos_disponibles(recursos_disponibles, eventos_expirados) ### pone a disponibilidad los recursos
+    return user, recursos_disponibles
+
+
+def cargar_recursos_disponibles(recursos_disponibles, eventos: list):### se encarga de llevar los recursos de eventos 
+    for evento in eventos:                                          ###expirados nuevamente a disponibilidad
+        for recurso in evento.Recursos:
+            recursos_disponibles.append(recurso)
+    return recursos_disponibles
+
+def barra_de_progreso(): ###por hacer algo chulo
+    lista = ['.', '..', '...', '....', '.....', '......', '.......', '........',
+             '..........', '..........'] 
+    for _ in range(7):
+        for x in lista:
+            print(x)
+        
+               
