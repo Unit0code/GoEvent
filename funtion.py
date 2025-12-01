@@ -1,9 +1,11 @@
 import json
 from pathlib import Path
-from datetime import datetime, date, time, timedelta
+from datetime import datetime, date, timedelta
 from user import User
 from Recursos import Recurso
 import Events
+import time
+import os
 
 
 def guardar_json (usuario : User): ###guardar los avances en un json con un path 'nombre_user'.json
@@ -127,6 +129,7 @@ def try_option (max, min = 1): ###Para los errores que pudiera generar el int(in
             print('El valor introducido ha generado un error.\nVuelva a introducirlo.')
 
 def printeo_opciones_eventos(): ###Printea los posibles eventos
+    clear()
     print('1. Viaje a la Habana.')
     print('2. Viaje a Guantanamo.')
     print('3. Viaje a Santiago de Cuba.')
@@ -234,14 +237,13 @@ def aux_agregar_eventos(lista_recursos, recursos_disponibles, user: User):
             print('Introduce 0 para salir.')
             input_user = try_option(len(recursos_disponibles), 0)
             
-            if not (recursos_disponibles[input_user - 1] in lista_recursos): ### para que no se repitan
+            if input_user == 0:  ### el usuario elige entre todos los recursos disponibles
+                break
+            elif not (recursos_disponibles[input_user - 1] in lista_recursos): ### para que no se repitan
                 lista_recursos.append(recursos_disponibles[input_user - 1]) 
                 print(f'Agregaste a recursos para este evento a {recursos_disponibles[input_user -1].nombre}.')
             else:
                 print('Ya annadiste ese recurso.') ###
-            
-            if input_user == 0:  ### el usuario elige entre todos los recursos disponibles
-                break
         
         print('Y para cuando lo deseas?')
         fecha = verificador_fecha() ### verifica que la fecha este en el formato correcto
@@ -259,6 +261,7 @@ def aux_agregar_eventos2(evento_final, user, recursos_disponibles):
         return None
 
 def agrego_eventos(option, recursos_disponibles, user: User): ###Agregar eventos
+    clear()
     print('Dime los Recursos que emplearas para este Evento.')
     
     if option == 1: #Viaje a la Habana
@@ -300,7 +303,7 @@ def agrego_eventos(option, recursos_disponibles, user: User): ###Agregar eventos
     
     elif option == 3: #viaje a santiago
         even_temporal = Events.travel_Stgo('10/10/2005 --- 12:40', 1) ###inicializo una instancia cualquiera temporal
-        restr1 = even_temporal.Restriction_recursos_pares  ### tomo las restricciones de pares
+        restr1 = even_temporal.Restriction_recursos_pares[0]  ### tomo las restricciones de pares
         lista_recursos = [] ### aqui iran los recursos que el usuario decida
 
         print(f'Este en especifico necesita de {dividir_lista_str(even_temporal.Needs)}. \nTampoco en este viaje\
@@ -354,7 +357,7 @@ def agrego_eventos(option, recursos_disponibles, user: User): ###Agregar eventos
 
     elif option == 6: #viaje a las villas
         even_temporal = Events.travel_Las_Villas('10/10/2005 --- 12:40', 1) ###inicializo una instancia cualquiera temporal
-        restr1 = even_temporal.Restriction_recursos_pares  ### tomo las restricciones de pares
+        restr1 = even_temporal.Restriction_recursos_pares[0]  ### tomo las restricciones de pares
         lista_recursos = [] ### aqui iran los recursos que el usuario decida
 
         print(f'Este en especifico necesita de {dividir_lista_str(even_temporal.Needs)}. \nTambien en este viaje\
@@ -372,7 +375,7 @@ def agrego_eventos(option, recursos_disponibles, user: User): ###Agregar eventos
 
     elif option == 7: #viaje a pinar del rio
         even_temporal = Events.travel_Pinar_Rio('10/10/2005 --- 12:40', 1) ###inicializo una instancia cualquiera temporal
-        restr1 = even_temporal.Restriction_recursos_pares  ### tomo las restricciones de pares
+        restr1 = even_temporal.Restriction_recursos_pares[0]  ### tomo las restricciones de pares
         lista_recursos = [] ### aqui iran los recursos que el usuario decida
 
         print(f'Este en especifico necesita de {dividir_lista_str(even_temporal.Needs)}. \nTambien en este viaje\
@@ -390,7 +393,7 @@ def agrego_eventos(option, recursos_disponibles, user: User): ###Agregar eventos
 
     elif option == 8: #viaje a matanzas
         even_temporal = Events.travel_Mtz('10/10/2005 --- 12:40', 1) ###inicializo una instancia cualquiera temporal
-        restr1 = even_temporal.Restriction_recursos_pares  ### tomo las restricciones de pares
+        restr1 = even_temporal.Restriction_recursos_pares[0]  ### tomo las restricciones de pares
         lista_recursos = [] ### aqui iran los recursos que el usuario decida
 
         print(f'Este en especifico necesita de {dividir_lista_str(even_temporal.Needs)}. \nTambien en este viaje\
@@ -408,7 +411,7 @@ def agrego_eventos(option, recursos_disponibles, user: User): ###Agregar eventos
 
     elif option == 9: #viaje a cienfuegos
         even_temporal = Events.travel_Cienfuegos('10/10/2005 --- 12:40', 1) ###inicializo una instancia cualquiera temporal
-        restr1 = even_temporal.Restriction_recursos_pares  ### tomo las restricciones de pares
+        restr1 = even_temporal.Restriction_recursos_pares[0]  ### tomo las restricciones de pares
         lista_recursos = [] ### aqui iran los recursos que el usuario decida
 
         print(f'Este en especifico necesita de {dividir_lista_str(even_temporal.Needs)}. \nTambien en este viaje\
@@ -426,7 +429,7 @@ def agrego_eventos(option, recursos_disponibles, user: User): ###Agregar eventos
 
     elif option == 10: #mantenimiento de vehiculos
         even_temporal = Events.Mantenimiento_Vehiculos('10/10/2005 --- 12:40', 1) ###inicializo una instancia cualquiera temporal
-        restr1 = even_temporal.Restriction_recursos_pares  ### tomo las restricciones de pares
+        restr1 = even_temporal.Restriction_recursos_pares[0]  ### tomo las restricciones de pares
         lista_recursos = [] ### aqui iran los recursos que el usuario decida
 
         print(f'Este en especifico necesita de {dividir_lista_str(even_temporal.Needs)}. \nTambien en este viaje\
@@ -447,7 +450,7 @@ def agrego_eventos(option, recursos_disponibles, user: User): ###Agregar eventos
         lista_recursos = [] ### aqui iran los recursos que el usuario decida
 
         print(f'Este en especifico necesita de {dividir_lista_str(even_temporal.Needs)}. \nTambien en este viaje\
- no pueden es muy necesario que vaya alguno de los guias.')
+ no es muy necesario que vaya alguno de los guias.')
         print('Toma los que necesites.')
         print('Escribe 0 para avisar que ya terminaste.')
         
@@ -460,32 +463,51 @@ def agrego_eventos(option, recursos_disponibles, user: User): ###Agregar eventos
         return user, recursos_disponibles
 
 def eliminar_eventos (user: User, recursos_disponibles): ###eliminara un evento de los agregados en el atributo eventos del user
-    for idx, eventos in enumerate(user.events):
-        print(f'{idx+1}. {eventos.__dict__()}')
+    clear()
+    for idx, evento in enumerate(user.events):
+        print(f'{idx + 1}. {evento.name}:    fecha de inicio -> {evento.fecha} \nfecha de finalizacion -> {evento.Finish_date}')
+        print('Recursos:')
+        for idx, recurso in enumerate(evento.Recursos):
+            print(f'  {idx + 1}. {recurso.nombre}:   categoria -> {recurso.categoria}, estado -> {recurso.estado}')
+        print('')
+    if not user.events:
+        print('No existen eventos que eliminar.')
+        return False
+    
     print('Cual desea eliminar?')
     option = try_option(len(user.events))
-    print(f'Deseas eliminar {user.events[option - 1]}??')
+    print(f'Deseas eliminar {user.events[option - 1].name}??')
     print('1. Si.')
     print('2. No')
     option = try_option(2) 
     if option == 1:
         recursos_disponibles = cargar_recursos_disponibles(recursos_disponibles, [user.events[option-1]]) # pone en disponibilidad
-        del user.events[option - 1]                                                     ### los recursos del evento que sera eliminado
+        del user.events[option - 1]                                                                 ### los recursos del evento que sera eliminado
+        print('Ha sido eliminado el evento.')                                             
         return user, recursos_disponibles
     else:
         print('Ok. Entonces volvamos.')
         return user
 
 def mostras_eventos(user: User):
+    clear()
     for idx, evento in enumerate(user.events):
-        print(f'{idx + 1}. {evento.__dict__()}')
+        print(f'{idx + 1}. {evento.name}:    fecha de inicio -> {evento.fecha} \nfecha de finalizacion -> {evento.Finish_date}')
+        print('Recursos:')
+        for idx, recurso in enumerate(evento.Recursos):
+            print(f'   {idx + 1}. {recurso.nombre}:   categoria -> {recurso.categoria}, estado -> {recurso.estado}')
+        print('')
+    if not user.events:
+        print('No hay eventos por el momento')
 
 def mostrar_recursos(recursos_disponibles):
+    clear()
     for idx, recurso in enumerate(recursos_disponibles):
-        print(f'{idx + 1}. {recurso.__dict__()}')
+        print(f'{idx + 1}. {recurso.nombre}:   categoria -> {recurso.categoria}, estado -> {recurso.estado}')
+    print('                     ')
 
 def verificador_estado_eventos (user: User, recursos_disponibles):
-    
+    clear()
     eventos_expirados = []
     fecha_hoy = datetime.today() ###creo la fecha de ese momento
 
@@ -512,10 +534,13 @@ def cargar_recursos_disponibles(recursos_disponibles, eventos: list):### se enca
     return recursos_disponibles
 
 def barra_de_progreso(): ###por hacer algo chulo
-    lista = ['.', '..', '...', '....', '.....', '......', '.......', '........',
-             '..........', '..........'] 
-    for _ in range(7):
-        for x in lista:
-            print(x)
-        
-               
+    a = '.'
+    for i in range(3):
+        for j in range(7):
+            print(a * j, end = '\r')
+            time.sleep(0.3)
+        print('           ', end= '\r')
+
+def clear(): ###limpia la pantalla
+    time.sleep(0.4)
+    os.system('cls')               
