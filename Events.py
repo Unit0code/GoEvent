@@ -221,7 +221,7 @@ class Mantenimiento_Vehiculos(Events): ### tipo evento de Mantenimiento de vehic
         self.Restriction_recursos = {} ### No pueden usarse para este evento.
         self.Restriction_recursos_pares = [('Marlon', 'Diego')] ###No pueden estar en el mismo Evento
         self.message = ['No hacen falta tantos admins pendientes, seria perdida de tiempo.'] ### Mensaje de las restricciones
-        self.Needs = ['TodosVehiculos', 'Suarez', 'Jose']  ###lo necesario de los nombres de los recursos para iniciar el viaje.
+        self.Needs = ['Vehiculo', 'Suarez', 'Jose']  ###lo necesario de los nombres de los recursos para iniciar el viaje.
         self.Recursos = list(Recursos)
     def __dict__ (self):
         Data = {'Nombre': self.name,
