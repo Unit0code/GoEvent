@@ -263,10 +263,10 @@ def agrego_eventos(option, recursos_disponibles, user: User): ###Agregar eventos
         print('Toma los que necesites.')
         print('Escribe 0 para avisar que ya terminaste.')
         
-        #####  ##############################hacer una funcion que actualice los recursos disponibles en el horario este en especificooooooooo #######
         recursos_disponibles_ahora = recursos_disponibles_horario_especifico(recursos_disponibles, user, fecha, fecha_fin)
         lista_recursos = aux_agregar_eventos(lista_recursos, recursos_disponibles_ahora) ### auxiliar de esta funcion
         evento_final = Events.travel_Habana(fecha, *lista_recursos)
+        
         try:
             user = aux_agregar_eventos2(evento_final, user) ## 2do auxiliar
         except Exception:
@@ -277,180 +277,200 @@ def agrego_eventos(option, recursos_disponibles, user: User): ###Agregar eventos
         even_temporal = Events.travel_Gto('10/10/2005 --- 12:40', 1) ###inicializo una instancia cualquiera temporal
         restr1, restr2 = even_temporal.Restriction_recursos_pares  ### tomo las restricciones de pares
         lista_recursos = [] ### aqui iran los recursos que el usuario decida
+        fecha, fecha_fin = verificador_fecha(even_temporal.Duration) ### verifica que la fecha este en el formato correcto
 
         print(f'Este en especifico necesita de {dividir_lista_str(even_temporal.Needs)}. \nTambien en este viaje\
  no pueden estar juntos {dividir_lista_str(restr1)} o {dividir_lista_str(restr2)}')
         print('Toma los que necesites.')
         print('Escribe 0 para avisar que ya terminaste.')
         
-        fecha, lista_recursos = aux_agregar_eventos(lista_recursos, recursos_disponibles, user) ### auxiliar de esta funcion
+        recursos_disponibles_ahora = recursos_disponibles_horario_especifico(recursos_disponibles, user, fecha, fecha_fin)
+        lista_recursos = aux_agregar_eventos(lista_recursos, recursos_disponibles_ahora) ### auxiliar de esta funcion
         evento_final = Events.travel_Gto(fecha, *lista_recursos)
         try:
-            user, recursos_disponibles = aux_agregar_eventos2(evento_final, user, recursos_disponibles) ## 2do auxiliar
+            user = aux_agregar_eventos2(evento_final, user) ## 2do auxiliar
         except Exception:
             pass
-        return user, recursos_disponibles
+        return user
     
     elif option == 3: #viaje a santiago
         even_temporal = Events.travel_Stgo('10/10/2005 --- 12:40', 1) ###inicializo una instancia cualquiera temporal
         restr1 = even_temporal.Restriction_recursos_pares[0]  ### tomo las restricciones de pares
         lista_recursos = [] ### aqui iran los recursos que el usuario decida
+        fecha, fecha_fin = verificador_fecha(even_temporal.Duration) ### verifica que la fecha este en el formato correcto
 
         print(f'Este en especifico necesita de {dividir_lista_str(even_temporal.Needs)}. \nTampoco en este viaje\
  no pueden estar juntos {dividir_lista_str(restr1)}. Al igual que ni a Juan o al camion1.')
         print('Toma los que necesites.')
         print('Escribe 0 para avisar que ya terminaste.')
         
-        fecha, lista_recursos = aux_agregar_eventos(lista_recursos, recursos_disponibles, user) ### auxiliar de esta funcion
+        recursos_disponibles_ahora = recursos_disponibles_horario_especifico(recursos_disponibles, user, fecha, fecha_fin)
+        lista_recursos = aux_agregar_eventos(lista_recursos, recursos_disponibles_ahora) ### auxiliar de esta funcion
         evento_final = Events.travel_Stgo(fecha, *lista_recursos)
         try:
-            user, recursos_disponibles = aux_agregar_eventos2(evento_final, user, recursos_disponibles) ## 2do auxiliar
+            user= aux_agregar_eventos2(evento_final, user) ## 2do auxiliar
         except Exception:
             pass
-        return user, recursos_disponibles
+        return user
     
     elif option == 4:# viaje a camaguey
         even_temporal = Events.travel_Camaguey('10/10/2005 --- 12:40', 1) ###inicializo una instancia cualquiera temporal
         restr1, restr2 = even_temporal.Restriction_recursos_pares  ### tomo las restricciones de pares
         lista_recursos = [] ### aqui iran los recursos que el usuario decida
+        fecha, fecha_fin = verificador_fecha(even_temporal.Duration) ### verifica que la fecha este en el formato correcto
 
         print(f'Este en especifico necesita de {dividir_lista_str(even_temporal.Needs)}. \nTambien en este viaje\
  no pueden estar juntos {dividir_lista_str(restr1)} o {dividir_lista_str(restr2)}. Al igual que Juan no puede hacer este viaje.')
         print('Toma los que necesites.')
         print('Escribe 0 para avisar que ya terminaste.')
         
-        fecha, lista_recursos = aux_agregar_eventos(lista_recursos, recursos_disponibles, user) ### auxiliar de esta funcion
+        recursos_disponibles_ahora = recursos_disponibles_horario_especifico(recursos_disponibles, user, fecha, fecha_fin)
+        lista_recursos = aux_agregar_eventos(lista_recursos, recursos_disponibles_ahora) ### auxiliar de esta funcion
         evento_final = Events.travel_Camaguey(fecha, *lista_recursos)
         try:
-            user, recursos_disponibles = aux_agregar_eventos2(evento_final, user, recursos_disponibles) ## 2do auxiliar
+            user = aux_agregar_eventos2(evento_final, user) ## 2do auxiliar
         except Exception:
             pass
-        return user, recursos_disponibles
+        return user
 
     elif option == 5: #viaje a las tunas
         even_temporal = Events.travel_Las_Tunas('10/10/2005 --- 12:40', 1) ###inicializo una instancia cualquiera temporal
         restr1, restr2 = even_temporal.Restriction_recursos_pares  ### tomo las restricciones de pares
         lista_recursos = [] ### aqui iran los recursos que el usuario decida
+        fecha, fecha_fin = verificador_fecha(even_temporal.Duration) ### verifica que la fecha este en el formato correcto
 
         print(f'Este en especifico necesita de {dividir_lista_str(even_temporal.Needs)}. \nTambien en este viaje\
  no pueden estar juntos {dividir_lista_str(restr1)} o {dividir_lista_str(restr2)}. Al igual que Juan no puede hacer este viaje.')
         print('Toma los que necesites.')
         print('Escribe 0 para avisar que ya terminaste.')
         
-        fecha, lista_recursos = aux_agregar_eventos(lista_recursos, recursos_disponibles, user) ### auxiliar de esta funcion
+        recursos_disponibles_ahora = recursos_disponibles_horario_especifico(recursos_disponibles, user, fecha, fecha_fin)
+        lista_recursos = aux_agregar_eventos(lista_recursos, recursos_disponibles_ahora) ### auxiliar de esta funcion
         evento_final = Events.travel_Las_Tunas(fecha, *lista_recursos)
         try:
-            user, recursos_disponibles = aux_agregar_eventos2(evento_final, user, recursos_disponibles) ## 2do auxiliar
+            user = aux_agregar_eventos2(evento_final, user) ## 2do auxiliar
         except Exception:
             pass
-        return user, recursos_disponibles
+        return user
 
     elif option == 6: #viaje a las villas
         even_temporal = Events.travel_Las_Villas('10/10/2005 --- 12:40', 1) ###inicializo una instancia cualquiera temporal
         restr1 = even_temporal.Restriction_recursos_pares[0]  ### tomo las restricciones de pares
         lista_recursos = [] ### aqui iran los recursos que el usuario decida
+        fecha, fecha_fin = verificador_fecha(even_temporal.Duration) ### verifica que la fecha este en el formato correcto
 
         print(f'Este en especifico necesita de {dividir_lista_str(even_temporal.Needs)}. \nTambien en este viaje\
  no pueden estar juntos {dividir_lista_str(restr1)}. Y no seria sugerible emplear al camion2.')
         print('Toma los que necesites.')
         print('Escribe 0 para avisar que ya terminaste.')
         
-        fecha, lista_recursos = aux_agregar_eventos(lista_recursos, recursos_disponibles, user) ### auxiliar de esta funcion
+        recursos_disponibles_ahora = recursos_disponibles_horario_especifico(recursos_disponibles, user, fecha, fecha_fin)
+        lista_recursos = aux_agregar_eventos(lista_recursos, recursos_disponibles_ahora) ### auxiliar de esta funcion
         evento_final = Events.travel_Las_Villas(fecha, *lista_recursos)
         try:
-            user, recursos_disponibles = aux_agregar_eventos2(evento_final, user, recursos_disponibles) ## 2do auxiliar
+            user = aux_agregar_eventos2(evento_final, user) ## 2do auxiliar
         except Exception:
             pass
-        return user, recursos_disponibles
+        return user
 
     elif option == 7: #viaje a pinar del rio
         even_temporal = Events.travel_Pinar_Rio('10/10/2005 --- 12:40', 1) ###inicializo una instancia cualquiera temporal
         restr1 = even_temporal.Restriction_recursos_pares[0]  ### tomo las restricciones de pares
         lista_recursos = [] ### aqui iran los recursos que el usuario decida
+        fecha, fecha_fin = verificador_fecha(even_temporal.Duration) ### verifica que la fecha este en el formato correcto
 
         print(f'Este en especifico necesita de {dividir_lista_str(even_temporal.Needs)}. \nTambien en este viaje\
  no pueden estar juntos {dividir_lista_str(restr1)}. Y no seria sugerible emplear al camion2.')
         print('Toma los que necesites.')
         print('Escribe 0 para avisar que ya terminaste.')
         
-        fecha, lista_recursos = aux_agregar_eventos(lista_recursos, recursos_disponibles, user) ### auxiliar de esta funcion
+        recursos_disponibles_ahora = recursos_disponibles_horario_especifico(recursos_disponibles, user, fecha, fecha_fin)
+        lista_recursos = aux_agregar_eventos(lista_recursos, recursos_disponibles_ahora) ### auxiliar de esta funcion
         evento_final = Events.travel_Pinar_Rio(fecha, *lista_recursos)
         try:
-            user, recursos_disponibles = aux_agregar_eventos2(evento_final, user, recursos_disponibles) ## 2do auxiliar
+            user = aux_agregar_eventos2(evento_final, user) ## 2do auxiliar
         except Exception:
             pass
-        return user, recursos_disponibles
+        return user
 
     elif option == 8: #viaje a matanzas
         even_temporal = Events.travel_Mtz('10/10/2005 --- 12:40', 1) ###inicializo una instancia cualquiera temporal
         restr1 = even_temporal.Restriction_recursos_pares[0]  ### tomo las restricciones de pares
         lista_recursos = [] ### aqui iran los recursos que el usuario decida
+        fecha, fecha_fin = verificador_fecha(even_temporal.Duration) ### verifica que la fecha este en el formato correcto
 
         print(f'Este en especifico necesita de {dividir_lista_str(even_temporal.Needs)}. \nTambien en este viaje\
  no pueden estar juntos {dividir_lista_str(restr1)}. Y no seria sugerible emplear al camion2.')
         print('Toma los que necesites.')
         print('Escribe 0 para avisar que ya terminaste.')
         
-        fecha, lista_recursos = aux_agregar_eventos(lista_recursos, recursos_disponibles, user) ### auxiliar de esta funcion
+        recursos_disponibles_ahora = recursos_disponibles_horario_especifico(recursos_disponibles, user, fecha, fecha_fin)
+        lista_recursos = aux_agregar_eventos(lista_recursos, recursos_disponibles_ahora) ### auxiliar de esta funcion
         evento_final = Events.travel_Mtz(fecha, *lista_recursos)
         try:
-            user, recursos_disponibles = aux_agregar_eventos2(evento_final, user, recursos_disponibles) ## 2do auxiliar
+            user= aux_agregar_eventos2(evento_final, user) ## 2do auxiliar
         except Exception:
             pass
-        return user, recursos_disponibles
+        return user
 
     elif option == 9: #viaje a cienfuegos
         even_temporal = Events.travel_Cienfuegos('10/10/2005 --- 12:40', 1) ###inicializo una instancia cualquiera temporal
         restr1 = even_temporal.Restriction_recursos_pares[0]  ### tomo las restricciones de pares
         lista_recursos = [] ### aqui iran los recursos que el usuario decida
+        fecha, fecha_fin = verificador_fecha(even_temporal.Duration) ### verifica que la fecha este en el formato correcto
 
         print(f'Este en especifico necesita de {dividir_lista_str(even_temporal.Needs)}. \nTambien en este viaje\
  no pueden estar juntos {dividir_lista_str(restr1)}. Y no seria sugerible emplear al camion2.')
         print('Toma los que necesites.')
         print('Escribe 0 para avisar que ya terminaste.')
         
-        fecha, lista_recursos = aux_agregar_eventos(lista_recursos, recursos_disponibles, user) ### auxiliar de esta funcion
+        recursos_disponibles_ahora = recursos_disponibles_horario_especifico(recursos_disponibles, user, fecha, fecha_fin)
+        lista_recursos = aux_agregar_eventos(lista_recursos, recursos_disponibles_ahora) ### auxiliar de esta funcion
         evento_final = Events.travel_Cienfuegos(fecha, *lista_recursos)
         try:
-            user, recursos_disponibles = aux_agregar_eventos2(evento_final, user, recursos_disponibles) ## 2do auxiliar
+            user = aux_agregar_eventos2(evento_final, user) ## 2do auxiliar
         except Exception:
             pass
-        return user, recursos_disponibles
+        return user
 
     elif option == 10: #mantenimiento de vehiculos
         even_temporal = Events.Mantenimiento_Vehiculos('10/10/2005 --- 12:40', 1) ###inicializo una instancia cualquiera temporal
         restr1 = even_temporal.Restriction_recursos_pares[0]  ### tomo las restricciones de pares
         lista_recursos = [] ### aqui iran los recursos que el usuario decida
+        fecha, fecha_fin = verificador_fecha(even_temporal.Duration) ### verifica que la fecha este en el formato correcto
 
         print(f'Este en especifico necesita de {dividir_lista_str(even_temporal.Needs)}. \nTambien en este viaje\
  no pueden estar juntos {dividir_lista_str(restr1)}.')
         print('Toma los que necesites.')
         print('Escribe 0 para avisar que ya terminaste.')
         
-        fecha, lista_recursos = aux_agregar_eventos(lista_recursos, recursos_disponibles, user) ### auxiliar de esta funcion
+        recursos_disponibles_ahora = recursos_disponibles_horario_especifico(recursos_disponibles, user, fecha, fecha_fin)
+        lista_recursos = aux_agregar_eventos(lista_recursos, recursos_disponibles_ahora) ### auxiliar de esta funcion
         evento_final = Events.Mantenimiento_Vehiculos(fecha, *lista_recursos)
         try:
-            user, recursos_disponibles = aux_agregar_eventos2(evento_final, user, recursos_disponibles) ## 2do auxiliar
+            user = aux_agregar_eventos2(evento_final, user) ## 2do auxiliar
         except Exception:
             pass
-        return user, recursos_disponibles
+        return user
 
     elif option == 11: #boteo en la habana
         even_temporal = Events.Botear_Habana('10/10/2005 --- 12:40', 1) ###inicializo una instancia cualquiera temporal
         lista_recursos = [] ### aqui iran los recursos que el usuario decida
+        fecha, fecha_fin = verificador_fecha(even_temporal.Duration) ### verifica que la fecha este en el formato correcto
 
         print(f'Este en especifico necesita de {dividir_lista_str(even_temporal.Needs)}. \nTambien en este viaje\
  no es muy necesario que vaya alguno de los guias.')
         print('Toma los que necesites.')
         print('Escribe 0 para avisar que ya terminaste.')
         
-        fecha, lista_recursos = aux_agregar_eventos(lista_recursos, recursos_disponibles, user) ### auxiliar de esta funcion
+        recursos_disponibles_ahora = recursos_disponibles_horario_especifico(recursos_disponibles, user, fecha, fecha_fin)
+        lista_recursos = aux_agregar_eventos(lista_recursos, recursos_disponibles_ahora) ### auxiliar de esta funcion
         evento_final = Events.Botear_Habana(fecha, *lista_recursos)
         try:
-            user, recursos_disponibles = aux_agregar_eventos2(evento_final, user, recursos_disponibles) ## 2do auxiliar
+            user = aux_agregar_eventos2(evento_final, user) ## 2do auxiliar
         except Exception:
             pass
-        return user, recursos_disponibles
+        return user
 
 def eliminar_eventos (user: User): ###eliminara un evento de los agregados en el atributo eventos del user
     clear()
@@ -491,11 +511,18 @@ def mostras_eventos(user: User):
     if not user.events:
         print('No hay eventos por el momento')
 
-def mostrar_recursos(recursos_disponibles):
+def mostrar_recursos(recursos_disponibles, user: User):
     clear()
-    for idx, recurso in enumerate(recursos_disponibles):
+    
+    for idx, recurso in enumerate(recursos_disponibles):  ### veo todos los recursos
         print(f'{idx + 1}. {recurso.nombre}:   categoria -> {recurso.categoria}, estado -> {recurso.estado}')
-    print('                     ')
+        ver, horarios = check_uso(recurso, user.events)
+        if ver:
+            print('El recurso no estara disponible en los horarios: ')
+            for hora_i, hora_f in horarios:
+                print(f'**{hora_i}   <->   **{hora_f}   ')
+        print('')
+    print('')
 
 def verificador_estado_eventos (user: User):
     clear()
@@ -545,3 +572,16 @@ def recursos_disponibles_horario_especifico(recursos_disponibles,user:User,fecha
         else:  
             recursos_disponibles_ahora.append(recurso_disp) ### agrega los que no estan en uso
     return recursos_disponibles_ahora
+
+def check_uso(recurso, eventos: list):
+    horarios = []
+    if not eventos:
+        return False, False ### lista vacia
+    else:
+        for evento in eventos:  ### veo en cada evento los recursos que estan en uso en algun horario
+            for recurso_uso in evento.Recursos:
+                if recurso_uso.nombre == recurso.nombre: ### analizo si el recurso que estoy analizando esta dentro de algun evento
+                    horarios.append((evento.fecha, evento.Finish_date)) ### tomo sus horarios.
+        if not horarios:
+            return False, False ### por si los eventos no son vacios pero el recurso no se usa
+        return True, horarios 

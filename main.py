@@ -64,7 +64,7 @@ while True:
                     
                     elif option == 4: ### mostrar los recursos disponibles
                         print('Los recursos disponibles en este momento son:')
-                        funtion.mostrar_recursos(Recursos_disponibles)
+                        funtion.mostrar_recursos(Recursos_disponibles, Usuario)
                     
                     elif option == 5: ###actualizar los eventos
                         print('Veamos si no hay ningun Evento que ya haya expirado.')
@@ -142,7 +142,7 @@ while True:
                                 elif option == 4: ### mostrar los recursos disponibles
                                     funtion.clear()
                                     print('Los recursos disponibles en este momento son:')
-                                    funtion.mostrar_recursos(Recursos_disponibles)
+                                    funtion.mostrar_recursos(Recursos_disponibles, Usuario)
                                 
                                 elif option == 5: ###actualizar los eventos
                                     print('Veamos si no hay ningun Evento que ya haya expirado.')
