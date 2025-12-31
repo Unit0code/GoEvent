@@ -48,6 +48,7 @@ def main(Recursos_disponibles, Usuario): ### una vez cargada las cuentas, el usu
             Eliminar.mostras_eventos(Usuario) ### indexa en los eventos con un for y los printea
                         
         elif option == 4: ### mostrar los recursos disponibles
+            miscelaneo.clean
             print('Los recursos disponibles en este momento son:')
             miscelaneo.mostrar_recursos(Recursos_disponibles, Usuario)
                         
@@ -66,7 +67,7 @@ def main(Recursos_disponibles, Usuario): ### una vez cargada las cuentas, el usu
         elif option == 7: ### salir al menu principal
             print('Primero, guardemos el perfil, para asegurarnos de que no se pierda la info.')
             Jsons.guardar_json(Usuario, Recursos_disponibles)
-            miscelaneo.barra_de_progreso()
+            #miscelaneo.barra_de_progreso()
             print('Hecho.')
             time.sleep(0.5) ### detiene el programa por 0.5 segundos
             break

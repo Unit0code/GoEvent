@@ -6,6 +6,7 @@ from Recursos import Recurso
 import Events
 import time
 import os
+import miscelaneo
 
 
 def guardar_json (usuario : User, Recursos_disponibles): ###guardar los avances en un json con un path 'nombre_user'.json
@@ -16,7 +17,9 @@ def guardar_json (usuario : User, Recursos_disponibles): ###guardar los avances 
                 for idc, recursos_evento in enumerate(eventos.Recursos): ###itero en los recursos de ese evento
                     eventos.Recursos[idc] = recursos_evento.__dict__()   ###cada evento lo vuelvo un dict
                 valor[idx] = eventos.__dict__() ### y finalizo ese evento volviendolo un dict tambien
-    
+
+    Recursos_disponibles = miscelaneo.copia_recursos(Recursos_disponibles)
+
     for idx, recurso in enumerate(Recursos_disponibles):
         recurso = recurso.__dict__()
         Recursos_disponibles[idx] = recurso ### guardo los recursos globales en el estado que se encuentran

@@ -6,6 +6,7 @@ from Recursos import Recurso
 import Events
 import time
 import os
+import copy
 
 def recomendador_cuentas (): ### lee los archivos en la carpeta del proyecto y ve cuales son los .json 
     ruta_relativa = './'
@@ -52,7 +53,7 @@ def barra_de_progreso(): ###por hacer algo chulo
 
 def mostrar_recursos(recursos_disponibles, user: User):
     clean()
-    
+    print('--------------------------------')
     for idx, recurso in enumerate(recursos_disponibles):  ### veo todos los recursos
         print(f'{idx + 1}. {recurso.nombre}:   categoria -> {recurso.categoria}, estado -> {recurso.estado}')
         if recurso.categoria == 'Vehiculo':
@@ -141,3 +142,10 @@ def actualizar_estado_recursos (Recursos_disponibles, recursos_recien_usados, re
                 recurso2.estado = 'OK'
     
     return Recursos_disponibles
+
+def copia_recursos (Recursos_disponibles):
+    recursoscopia = []
+    
+    for recurs in Recursos_disponibles:
+        recursoscopia.append(copy.copy(recurs))
+    return recursoscopia 

@@ -9,6 +9,7 @@ from sys import exit
 import time
 from miscelaneo import clean, try_option
 import copy
+import miscelaneo
 
 def printeo_opciones_eventos(): ###Printea los posibles eventos
     clean()
@@ -169,6 +170,7 @@ def verificador_fecha(duration_event):  ### recibe la duracion del evento para q
                 print('Esta fecha es anterior al dia de hoy. Vuelve a introducirla.')
                 continue
             fecha_fin = string + duration_event
+            clean()
             return fecha, fecha_fin
         except Exception:
             print('Ha habido un error. Introduce una fecha en el formato solicitado')

@@ -48,6 +48,7 @@ def recursos_agotados(Recursos_disponibles, user:User):
         elif option == 3:
             miscelaneo.clean()
             print('Los vehiculos y personas no podran usarse hasta no haberles dado solucion a sus problemas.')
+            return user
             
     elif option == 2:
         miscelaneo.clean()
