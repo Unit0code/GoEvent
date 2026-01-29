@@ -39,25 +39,30 @@ class Recurso:
 ### Se inicializaran recursos siempre que empiece el programa
 ### y dependiendo que cuales tenga el usuario se eliminaran dichas instancias
 
-transtur1 = Recurso('Transtur1', 'Vehiculo', 'OK', 5)
-transtur2 = Recurso('Transtur2', 'Vehiculo', 'OK',5)
-camion1= Recurso('Camion1', 'Vehiculo', 'OK', 5)
-camion2 = Recurso('Camion2', 'Vehiculo', 'OK', 5)
-chofer_juan = Recurso('Juan', 'Conductor', 'OK', energia= 100)
-chofer_pedro = Recurso('Pedro', 'Conductor', 'OK', energia= 100)
-chofer_rigoberto = Recurso('Rigoberto', 'Conductor', 'OK', energia= 100)
-chofer_menendez = Recurso('Menendez', 'Conductor', 'OK', energia= 100)
-mecanico_suarez = Recurso('Suarez', 'Mecanico', 'OK', energia= 100)
-mecanico_jose = Recurso('Jose', 'Mecanico', 'OK', energia= 100)
-admin_marlon = Recurso('Marlon', 'Admin', 'OK', energia= 100)
-admin_diego = Recurso('Diego', 'Admin', 'OK', energia= 100)
-guias_federico = Recurso('Federico', 'Guia', 'OK', energia= 100)
-guia_phineas = Recurso('Phineas', 'Guia', 'OK', energia= 100)
+
+def Inicializador_Recursos ():
+
+    transtur1 = Recurso('Transtur1', 'Vehiculo', 'OK', 5)
+    transtur2 = Recurso('Transtur2', 'Vehiculo', 'OK',5)
+    camion1= Recurso('Camion1', 'Vehiculo', 'OK', 5)
+    camion2 = Recurso('Camion2', 'Vehiculo', 'OK', 5)
+    chofer_juan = Recurso('Juan', 'Conductor', 'OK', energia= 100)
+    chofer_pedro = Recurso('Pedro', 'Conductor', 'OK', energia= 100)
+    chofer_rigoberto = Recurso('Rigoberto', 'Conductor', 'OK', energia= 100)
+    chofer_menendez = Recurso('Menendez', 'Conductor', 'OK', energia= 100)
+    mecanico_suarez = Recurso('Suarez', 'Mecanico', 'OK', energia= 100)
+    mecanico_jose = Recurso('Jose', 'Mecanico', 'OK', energia= 100)
+    admin_marlon = Recurso('Marlon', 'Admin', 'OK', energia= 100)
+    admin_diego = Recurso('Diego', 'Admin', 'OK', energia= 100)
+    guias_federico = Recurso('Federico', 'Guia', 'OK', energia= 100)
+    guia_phineas = Recurso('Phineas', 'Guia', 'OK', energia= 100)
 
 
-Recursos_disponibles = [ ###Todas las instancias inicializadas arriba
+    Recursos_disponibles = [ ###Todas las instancias inicializadas arriba
     transtur1, transtur2, camion1, camion2,
     chofer_juan,chofer_menendez, chofer_pedro,
     chofer_rigoberto, mecanico_jose, mecanico_suarez,
     admin_marlon, admin_diego, guias_federico, guia_phineas
                         ]
+    
+    return Recursos_disponibles

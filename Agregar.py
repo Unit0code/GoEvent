@@ -11,6 +11,13 @@ from miscelaneo import clean, try_option
 import copy
 import miscelaneo
 
+Relacion_evento_numeracion = { 1: Events.travel_Habana, 2: Events.travel_Gto,
+3: Events.travel_Stgo, 4: Events.travel_Camaguey, 5: Events.travel_Las_Tunas,
+6: Events.travel_Las_Villas, 7: Events.travel_Pinar_Rio, 8: Events.travel_Mtz,
+9: Events.travel_Cienfuegos, 10: Events.Botear_Habana, 11: Events.Mantenimiento_Vehiculos,
+12: Events.Vacaciones_trabajadores } 
+### estas son para identificar que numeracion tiene asignada cada evento
+
 def printeo_opciones_eventos(): ###Printea los posibles eventos
     clean()
     print('1. Viaje a la Habana.')
@@ -29,7 +36,7 @@ def printeo_opciones_eventos(): ###Printea los posibles eventos
 def agrego_eventos(option, recursos_disponibles, user: User): ###Agregar eventos
     clean()
     print('Dime la fecha en la que deseas realizarlo.')
-    
+
     if option == 1: #Viaje a la Habana
         even_temporal = Events.travel_Habana('10/10/2005 --- 12:40', 1) ###inicializo una instancia cualquiera temporal
         fecha, lista_recursos = proceso_agregar(even_temporal, user, recursos_disponibles)

@@ -44,14 +44,16 @@ def eliminar_eventos (user: User): ###eliminara un evento de los agregados en el
 
 def mostras_eventos(user: User): ### printea los eventos con detalles
     clean()
+    if not user.events:
+        print('No hay eventos por el momento')
+        return
+    
     for idx, evento in enumerate(user.events):
         print(f'{idx + 1}. {evento.name}:    fecha de inicio -> {evento.fecha} \nfecha de finalizacion -> {evento.Finish_date}')
         print('Recursos:')
         for idx, recurso in enumerate(evento.Recursos):
             print(f'   {idx + 1}. {recurso.nombre}:   categoria -> {recurso.categoria}, estado -> {recurso.estado}')
         print('')
-    if not user.events:
-        print('No hay eventos por el momento')
 
 def verificador_inicio(user_eventos:list): ### recibira los eventos del usuario, y sacara de esa lista los que ya hallan
     eventos_no_iniciados = []        ### empezado, para que no puedan ser eliminados 

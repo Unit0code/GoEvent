@@ -13,7 +13,7 @@ import miscelaneo
 from recursos_dannados import recursos_agotados
 
 name_user = ''
-Recursos_disponibles = Recursos.Recursos_disponibles #carga recursos por defecto
+Recursos_disponibles = Recursos.Inicializador_Recursos #carga recursos por defecto
 
 def main(Recursos_disponibles, Usuario): ### una vez cargada las cuentas, el usuario solo interacciona aqui
     while True:
@@ -86,9 +86,9 @@ while True:
             miscelaneo.clean() ###limpia la pantalla   
             print('Perfecto, entonces, cual sera tu nombre?')
             name_user = input()
-            print('Y ahora establezcamos una contrasenna para asegurarnos de que nadie acceda a tu perfil.')
+            print('Y ahora establezcamos una contraseña para asegurarnos de que nadie acceda a tu perfil.')
             passw = input()
-            print(f'Tu perfil sera {name_user} con contrasenna {passw}, estas de acuerdo?')
+            print(f'Tu perfil sera {name_user} con contraseña {passw}, estas de acuerdo?')
             print('1. Si \n2. No \n3. Ir al menu principal.')
             option = miscelaneo.try_option(3)
             if option == 1:
@@ -117,9 +117,9 @@ while True:
                     print('Puede volverlo a intentar.')
                     time.sleep(0.5)
                 else:
-                    print('El Perfil ha sido encontrado, ahora necesitamos su contrasenna para verificar.')
+                    print('El Perfil ha sido encontrado, ahora necesitamos su contraseña para verificar.')
                     while True:
-                        passw = input('Contrasenna: ')
+                        passw = input('Contraseña: ')
                         if miscelaneo.verificador_passw(passw, Usuario):  ### la contrasenna es la correcta y puede ejecutarse el programa.
                             miscelaneo.clean()
                             print(f'Bienvenido {Usuario.name}')
@@ -129,7 +129,7 @@ while True:
                         if passw == 'salir':
                             break  ### sale al menu de cargar nuevamente el usuario 
                         else:
-                            print('No es la contrasenna. Vuelva a intentarlo o introduzca "salir"'
+                            print('No es la contraseña. Vuelva a intentarlo o introduzca "salir"'
                                   ' para volver al menu principal.')
                     
                     if passw == 'salir':
