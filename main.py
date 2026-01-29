@@ -13,7 +13,7 @@ import miscelaneo
 from recursos_dannados import recursos_agotados
 
 name_user = ''
-Recursos_disponibles = Recursos.Inicializador_Recursos #carga recursos por defecto
+Recursos_disponibles = Recursos.Inicializador_Recursos() #carga recursos por defecto
 
 def main(Recursos_disponibles, Usuario): ### una vez cargada las cuentas, el usuario solo interacciona aqui
     while True:

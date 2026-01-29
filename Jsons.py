@@ -8,6 +8,13 @@ import time
 import os
 import miscelaneo
 
+Relacion_nombre_evento = { 'Viaje a la Habana': Events.travel_Habana,
+ 'Viaje a Guantanamo': Events.travel_Gto, 'Viaje a Santiago de Cuba': Events.travel_Stgo,
+ 'Viaje a Camaguey': Events.travel_Camaguey, 'Viaje a Las Tunas': Events.travel_Las_Tunas,
+'Viaje a Las Villas': Events.travel_Las_Villas, 'Viaje a Pinar del Rio': Events.travel_Pinar_Rio,
+ 'Viaje a Matanzas': Events.travel_Mtz, 'Viaje a Cienfuegos': Events.travel_Cienfuegos,
+'Boteo en la Habana': Events.Botear_Habana, 'Mantenimiento de Vehiculos': Events.Mantenimiento_Vehiculos,
+'Descanso pagado a los trabajadores': Events.Vacaciones_trabajadores } 
 
 def guardar_json (usuario : User, Recursos_disponibles): ###guardar los avances en un json con un path 'nombre_user'.json
     data = usuario.__dict__()
@@ -85,50 +92,11 @@ def inicializar_eventos (data_user):
         nombre = evento_p['Nombre']
         fecha = evento_p['Fecha inicio']
         recursos = evento_p['Recursos']
-        
-        if nombre == 'Viaje a la Habana':   ### dependiendo del nombre inicializo la instancia Evento(tipo especif)
-            evento_p = Events.travel_Habana(fecha, *recursos)
-            Eventos[idx] = evento_p
-        
-        elif nombre == 'Viaje a Guantanamo':
-            evento_p = Events.travel_Gto(fecha, *recursos)
-            Eventos[idx] = evento_p
-        
-        elif nombre == 'Viaje a Santiago de Cuba':
-            evento_p = Events.travel_Stgo(fecha, *recursos)
-            Eventos[idx] = evento_p
-        
-        elif nombre == 'Viaje a Camaguey':
-            evento_p = Events.travel_Camaguey(fecha, *recursos)
-            Eventos[idx] = evento_p
 
-        elif nombre == 'Viaje a Las Tunas':
-            evento_p = Events.travel_Las_Tunas(fecha, *recursos)
-            Eventos[idx] = evento_p
-        
-        elif nombre == 'Viaje a Las Villas':
-            evento_p = Events.travel_Las_Villas(fecha, *recursos)
-            Eventos[idx] = evento_p
-        
-        elif nombre == 'Viaje a Pinar del Rio': ###
-            evento_p = Events.travel_Pinar_Rio(fecha, *recursos)
-            Eventos[idx] = evento_p
-        
-        elif nombre == 'Viaje a Matanzas':
-            evento_p = Events.travel_Mtz(fecha, *recursos)
-            Eventos[idx] = evento_p
-        
-        elif nombre == 'Viaje a Cienfuegos':
-            evento_p = Events.travel_Cienfuegos(fecha, *recursos)
-            Eventos[idx] = evento_p
+        clase = Relacion_nombre_evento.get(nombre) ### busco cual es la clase con mismo nombre
+        evento_p = clase(fecha, *recursos) ### creo el evento
+        Eventos[idx] = evento_p ### lo agrego a la lista de eventos del user
 
-        elif nombre == 'Mantenimiento de Vehiculos':
-            evento_p = Events.Mantenimiento_Vehiculos(fecha, *recursos)
-            Eventos[idx] = evento_p
-        
-        elif nombre == 'Boteo en la Habana':
-            evento_p = Events.Botear_Habana(fecha, *recursos)
-            Eventos[idx] = evento_p
     data_user['Eventos'] = Eventos
     return data_user
 

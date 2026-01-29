@@ -37,77 +37,13 @@ def agrego_eventos(option, recursos_disponibles, user: User): ###Agregar eventos
     clean()
     print('Dime la fecha en la que deseas realizarlo.')
 
-    if option == 1: #Viaje a la Habana
-        even_temporal = Events.travel_Habana('10/10/2005 --- 12:40', 1) ###inicializo una instancia cualquiera temporal
-        fecha, lista_recursos = proceso_agregar(even_temporal, user, recursos_disponibles)
-        evento_final = Events.travel_Habana(fecha, *lista_recursos) ### se crea el evento
-        return proceso_agregar2(evento_final, user)
+    clase = Relacion_evento_numeracion.get(option) ### tomo la clase que esta relacionada con la opcion
+                                               ### selecionada
 
-    elif option == 2: #viaje a guantanamo
-        even_temporal = Events.travel_Gto('10/10/2005 --- 12:40', 1) ###inicializo una instancia cualquiera temporal
-        fecha, lista_recursos = proceso_agregar(even_temporal, user, recursos_disponibles)
-        evento_final = Events.travel_Gto(fecha, *lista_recursos) ### se crea el evento
-        return proceso_agregar2(evento_final, user)
-    
-    elif option == 3: #viaje a santiago
-        even_temporal = Events.travel_Stgo('10/10/2005 --- 12:40', 1) ###inicializo una instancia cualquiera temporal
-        fecha, lista_recursos = proceso_agregar(even_temporal, user, recursos_disponibles)
-        evento_final = Events.travel_Stgo(fecha, *lista_recursos) ### se crea el evento
-        return proceso_agregar2(evento_final, user)
-    
-    elif option == 4:# viaje a camaguey
-        even_temporal = Events.travel_Camaguey('10/10/2005 --- 12:40', 1) ###inicializo una instancia cualquiera temporal
-        fecha, lista_recursos = proceso_agregar(even_temporal, user, recursos_disponibles)
-        evento_final = Events.travel_Camaguey(fecha, *lista_recursos) ### se crea el evento
-        return proceso_agregar2(evento_final, user)
-
-    elif option == 5: #viaje a las tunas
-        even_temporal = Events.travel_Las_Tunas('10/10/2005 --- 12:40', 1) ###inicializo una instancia cualquiera temporal
-        fecha, lista_recursos = proceso_agregar(even_temporal, user, recursos_disponibles)
-        evento_final = Events.travel_Las_Tunas(fecha, *lista_recursos) ### se crea el evento
-        return proceso_agregar2(evento_final, user)
-
-    elif option == 6: #viaje a las villas
-        even_temporal = Events.travel_Las_Villas('10/10/2005 --- 12:40', 1) ###inicializo una instancia cualquiera temporal
-        fecha, lista_recursos = proceso_agregar(even_temporal, user, recursos_disponibles)
-        evento_final = Events.travel_Las_Villas(fecha, *lista_recursos) ### se crea el evento
-        return proceso_agregar2(evento_final, user)
-
-    elif option == 7: #viaje a pinar del rio
-        even_temporal = Events.travel_Pinar_Rio('10/10/2005 --- 12:40', 1) ###inicializo una instancia cualquiera temporal
-        fecha, lista_recursos = proceso_agregar(even_temporal, user, recursos_disponibles)
-        evento_final = Events.travel_Pinar_Rio(fecha, *lista_recursos) ### se crea el evento
-        return proceso_agregar2(evento_final, user)
-
-    elif option == 8: #viaje a matanzas
-        even_temporal = Events.travel_Mtz('10/10/2005 --- 12:40', 1) ###inicializo una instancia cualquiera temporal
-        fecha, lista_recursos = proceso_agregar(even_temporal, user, recursos_disponibles)
-        evento_final = Events.travel_Mtz(fecha, *lista_recursos) ### se crea el evento
-        return proceso_agregar2(evento_final, user)
-
-    elif option == 9: #viaje a cienfuegos
-        even_temporal = Events.travel_Cienfuegos('10/10/2005 --- 12:40', 1) ###inicializo una instancia cualquiera temporal
-        fecha, lista_recursos = proceso_agregar(even_temporal, user, recursos_disponibles)
-        evento_final = Events.travel_Cienfuegos(fecha, *lista_recursos) ### se crea el evento
-        return proceso_agregar2(evento_final, user)
-
-    elif option == 10: #boteo en la habana
-        even_temporal = Events.Botear_Habana('10/10/2005 --- 12:40', 1) ###inicializo una instancia cualquiera temporal
-        fecha, lista_recursos = proceso_agregar(even_temporal, user, recursos_disponibles)
-        evento_final = Events.Botear_Habana(fecha, *lista_recursos) ### se crea el evento
-        return proceso_agregar2(evento_final, user)
-    
-    elif option == 11: #mantenimiento de vehiculos
-        even_temporal = Events.Mantenimiento_Vehiculos('10/10/2005 --- 12:40', 1) ###inicializo una instancia cualquiera temporal
-        fecha, lista_recursos = proceso_agregar(even_temporal, user, recursos_disponibles)
-        evento_final = Events.Mantenimiento_Vehiculos(fecha, *lista_recursos) ### se crea el evento
-        return proceso_agregar2(evento_final, user)
-    
-    elif option == 12: #descanso para trabajadores
-        even_temporal = Events.Vacaciones_trabajadores('10/10/2005 --- 12:40', 1) ###inicializo una instancia cualquiera temporal
-        fecha, lista_recursos = proceso_agregar(even_temporal, user, recursos_disponibles)
-        evento_final = Events.Vacaciones_trabajadores(fecha, *lista_recursos) ### se crea el evento
-        return proceso_agregar2(evento_final, user)
+    even_temporal = clase('10/10/2005 --- 12:40', 1) ###inicializo una instancia cualquiera temporal
+    fecha, lista_recursos = proceso_agregar(even_temporal, user, recursos_disponibles)
+    evento_final = clase(fecha, *lista_recursos) ### se crea el evento
+    return proceso_agregar2(evento_final, user)
 
 def proceso_agregar (even_temporal, user: User, recursos_disponibles): ### Aqui se reune todas las funciones para crear y verificar el evento
     
