@@ -27,32 +27,32 @@ def recursos_agotados(Recursos_disponibles, user:User):
     option = miscelaneo.try_option(2)
     if option == 1:
         miscelaneo.clean()
-        print('1. Llevar los Vehiculos a Mantenimiento.')
-        print('2. Darles a las personas unas vacaciones pagadas.')
-        print('3. De vuelta al menu principal.')
+        print('1. Llevar los Vehiculos a Mantenimiento.👨‍🔧')
+        print('2. Darles a las personas unas vacaciones pagadas.🎫')
+        print('3. De vuelta al menu principal.🔙')
         option = miscelaneo.try_option(3)
         if option == 1:
             miscelaneo.clean()
             if not vehiculos:
-                print('No existen vehiculos que arreglar.')
+                print('No existen vehiculos que arreglar.❌')
             else:
                 user = Agregar_evento_Vehiculos(vehiculos, Recursos_disponibles, user)
             return user
         elif option == 2:
             miscelaneo.clean()
             if not personas:
-                print('No existen personas tales personas.')
+                print('No existen personas tales personas.❌')
             else:
                 user = Agregar_evento_Personas(personas, Recursos_disponibles, user)
             return user
         elif option == 3:
             miscelaneo.clean()
-            print('Los vehiculos y personas no podran usarse hasta no haberles dado solucion a sus problemas.')
+            print('Los vehiculos y personas no podran usarse hasta no haberles dado solucion a sus problemas.⭕')
             return user
             
     elif option == 2:
         miscelaneo.clean()
-        print('Los vehiculos y personas no podran usarse hasta no haberles dado solucion a sus problemas.')
+        print('Los vehiculos y personas no podran usarse hasta no haberles dado solucion a sus problemas.⭕')
         return user
 
 def printear_Vehiculos_dannados(Recursos_disponibles):
@@ -60,7 +60,7 @@ def printear_Vehiculos_dannados(Recursos_disponibles):
     
     for idx, recursos in enumerate(Recursos_disponibles):
         if recursos.categoria == 'Vehiculo' and recursos.usos == 0:
-            print(f'* {recursos.nombre} esta roto.')
+            print(f'* {recursos.nombre} esta roto.🔧')
             vehiculos_rotos.append(recursos)
         elif idx == len(Recursos_disponibles) - 1 and not vehiculos_rotos:
             print('---')
@@ -71,7 +71,7 @@ def printear_Personas_cansadas(Recursos_disponibles):
     
     for idx, recursos in enumerate(Recursos_disponibles):
         if recursos.categoria != 'Vehiculos' and recursos.energia == 0:
-            print(f'* {recursos.nombre} se encuentra agotado.')
+            print(f'* {recursos.nombre} se encuentra agotado.😴')
             personas_agotadas.append(recursos)
         elif idx == len(Recursos_disponibles) - 1 and not personas_agotadas:
             print('---')
@@ -90,7 +90,7 @@ def Agregar_evento_Vehiculos(vehiculos, Recursos_disponibles, user:User):
             vehiculos.append(recurso)
             break
         if idx == len(verif2) - 1:  ### si llego a este punto, no existe ninguno
-            print('No hay mecanico disponible para dentro de poco')
+            print('No hay mecanico disponible para dentro de poco.❌')
             return user
         
     mantenim = Events.Mantenimiento_Vehiculos(fecha2, *vehiculos)
@@ -100,9 +100,9 @@ def Agregar_evento_Vehiculos(vehiculos, Recursos_disponibles, user:User):
         return user
     for vehiculos in mantenim.Recursos:
         if vehiculos not in verif2: ### si algun recurso no se encuentra disponible
-            print('No todo los vehiculos esta disponibles para dentro de un rato.')
+            print('No todo los vehiculos esta disponibles para dentro de un rato.❌')
             return user
-    print('Evento agregado exitosamente.')
+    print('Evento agregado exitosamente.✅')
     user.events.append(mantenim)
     return user
 
@@ -118,9 +118,9 @@ def Agregar_evento_Personas(personas, Recursos_disponibles, user: User):
         return user
     for persona in personas:
         if persona not in verif2: ### si algun recurso no se encuentra disponible
-            print('No todas las personas estan disponibles para dentro de un rato.')
+            print('No todas las personas estan disponibles para dentro de un rato.❌')
             return user
-    print('Evento agregado exitosamente.')
+    print('Evento agregado exitosamente.✅')
     user.events.append(vacaciones)
     return user
     

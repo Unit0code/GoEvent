@@ -10,7 +10,7 @@ from sys import exit
 import time
 import Eliminar
 import miscelaneo
-from recursos_dannados import recursos_agotados
+import recursos_dannados
 
 name_user = ''
 Recursos_disponibles = Recursos.Inicializador_Recursos() #carga recursos por defecto
@@ -18,13 +18,13 @@ Recursos_disponibles = Recursos.Inicializador_Recursos() #carga recursos por def
 def main(Recursos_disponibles, Usuario): ### una vez cargada las cuentas, el usuario solo interacciona aqui
     while True:
         print('Que deseas?')
-        print('1. Agregar Eventos a tu agenda.')
-        print('2. Eliminar Eventos de tu agenda.') 
-        print('3. Ver los Eventos agendados.')
-        print('4. Ver los Recursos y su disponibilidad.')
-        print('5. Actualizar Agenda.')
-        print('6. Ver los Recursos rotos o agotados.')
-        print('7. Salir al menu principal.')
+        print('1. Agregar Eventos a tu agenda.📩')
+        print('2. Eliminar Eventos de tu agenda.⭕') 
+        print('3. Ver los Eventos agendados.👀')
+        print('4. Ver los Recursos y su disponibilidad.👀')
+        print('5. Actualizar Agenda.🔄')
+        print('6. Ver los Recursos rotos o agotados.👀')
+        print('7. Salir al menu principal.🔙')
 
         option = miscelaneo.try_option(7)
         if option == 1: ### Agrega eventos como al usuario le plazca
@@ -49,7 +49,7 @@ def main(Recursos_disponibles, Usuario): ### una vez cargada las cuentas, el usu
                         
         elif option == 4: ### mostrar los recursos disponibles
             miscelaneo.clean
-            print('Los recursos disponibles en este momento son:')
+            print('Los recursos y su disponibilidad en este momento son:')
             miscelaneo.mostrar_recursos(Recursos_disponibles, Usuario)
                         
         elif option == 5: ###actualizar los eventos
@@ -62,12 +62,12 @@ def main(Recursos_disponibles, Usuario): ### una vez cargada las cuentas, el usu
         
         elif option == 6:### Observar los recursos dannados y da la posibilidad de repararlos
             miscelaneo.clean()
-            Usuario = recursos_agotados(Recursos_disponibles, Usuario)
+            Usuario = recursos_dannados.recursos_agotados(Recursos_disponibles, Usuario)
 
         elif option == 7: ### salir al menu principal
-            print('Primero, guardemos el perfil, para asegurarnos de que no se pierda la info.')
+            print('Primero, guardemos el perfil, para asegurarnos de que no se pierda la info.📩')
             Jsons.guardar_json(Usuario, Recursos_disponibles)
-            #miscelaneo.barra_de_progreso()
+            miscelaneo.barra_de_progreso()
             print('Hecho.')
             time.sleep(0.5) ### detiene el programa por 0.5 segundos
             break
@@ -75,7 +75,7 @@ def main(Recursos_disponibles, Usuario): ### una vez cargada las cuentas, el usu
 ###inicio del programa
 while True:
     miscelaneo.clean()
-    print('Hola, Bienvenido al Gestor de tareas para tu empresa de vehiculos.')
+    print('Hola, Bienvenido al Gestor de tareas para tu empresa de vehiculos. 🚌')
     print('1. Crearse una cuenta.')
     print('2. Cargar una cuenta.')
     print('3. Salir del Programa.')
@@ -84,9 +84,9 @@ while True:
     if option == 1:  ### Creacion de nueva cuenta
         while True:
             miscelaneo.clean() ###limpia la pantalla   
-            print('Perfecto, entonces, cual sera tu nombre?')
+            print('Perfecto, entonces, cual sera tu nombre?📝')
             name_user = input()
-            print('Y ahora establezcamos una contraseña para asegurarnos de que nadie acceda a tu perfil.')
+            print('Y ahora establezcamos una contraseña para asegurarnos de que nadie acceda a tu perfil.🔒')
             passw = input()
             print(f'Tu perfil sera {name_user} con contraseña {passw}, estas de acuerdo?')
             print('1. Si \n2. No \n3. Ir al menu principal.')
@@ -106,7 +106,7 @@ while True:
     elif option == 2: ### carga una 'cuenta' (un archivo .json)
         while True:
             miscelaneo.clean()
-            print('1. Introducir el nombre de usuario.')
+            print('1. Introducir el nombre de usuario.👨‍💻')
             print('2. Salir al menu principal.')
             option = miscelaneo.try_option(2)
             if option == 1:
@@ -117,7 +117,7 @@ while True:
                     print('Puede volverlo a intentar.')
                     time.sleep(0.5)
                 else:
-                    print('El Perfil ha sido encontrado, ahora necesitamos su contraseña para verificar.')
+                    print('El Perfil ha sido encontrado, ahora necesitamos su contraseña para verificar.🤓')
                     while True:
                         passw = input('Contraseña: ')
                         if miscelaneo.verificador_passw(passw, Usuario):  ### la contrasenna es la correcta y puede ejecutarse el programa.

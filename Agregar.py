@@ -35,7 +35,7 @@ def printeo_opciones_eventos(): ###Printea los posibles eventos
 
 def agrego_eventos(option, recursos_disponibles, user: User): ###Agregar eventos
     clean()
-    print('Dime la fecha en la que deseas realizarlo.')
+    print('Dime la fecha en la que deseas realizarlo.🕒')
 
     clase = Relacion_evento_numeracion.get(option) ### tomo la clase que esta relacionada con la opcion
                                                ### selecionada
@@ -51,7 +51,6 @@ def proceso_agregar (even_temporal, user: User, recursos_disponibles): ### Aqui 
     lista_recursos = [] ### aqui iran los recursos que el usuario decida
     fecha, fecha_fin = verificador_fecha(even_temporal.Duration) ### verifica que la fecha este en el formato correcto
     
-    print('Ahora dime los recursos que emplearas.')
     print(f'Este evento en especifico necesita de {dividir_lista_str(even_temporal.Needs)}.')
 
     if even_temporal.Restriction_recursos: ### printera todas las excepciones que no se pueden usar en el evento
@@ -86,9 +85,9 @@ def aux_agregar_eventos(lista_recursos, recursos_disponibles):
                 break
             elif not (recursos_disponibles[input_user - 1] in lista_recursos): ### para que no se repitan
                 lista_recursos.append(recursos_disponibles[input_user - 1]) 
-                print(f'Agregaste a recursos para este evento a {recursos_disponibles[input_user -1].nombre}.')
+                print(f'Agregaste a recursos para este evento a {recursos_disponibles[input_user -1].nombre}.✅')
             else:
-                print('Ya annadiste ese recurso.') ###
+                print('Ya añadiste ese recurso.💢') ###
 
         return lista_recursos
 
@@ -96,10 +95,10 @@ def aux_agregar_eventos2(evento_final, user):
     
     if verificador_validez_nuevo_evento(evento_final): ###verifica si no tiene problemas y lo agrega a los eventos del usuario
         user.events.append(evento_final)
-        print('Se ha agregado el evento a la agenda.')
+        print('Se ha agregado el evento a la agenda.✅')
         return user
     else:
-        print('El evento no se ha agendado por incumplir ciertos parametros. Vuelva a intentarlo.')
+        print('El evento no se ha agendado por incumplir ciertos parametros. Vuelva a intentarlo.❌')
         return user
 
 def verificador_fecha(duration_event):  ### recibe la duracion del evento para que me devuelva la fecha fin
@@ -123,7 +122,7 @@ def verificador_restricciones(evento): ### chequea especificamente las restricci
     for recursos in evento.Recursos:
         for restr, mssg in evento.Restriction_recursos.items(): ###ve las restricciones que hay y si coinciden con los nombre
             if recursos.nombre == restr:                        ### de los recursos
-                print(f'{recursos.nombre + 'no deberia ir en este viaje. '+ mssg} ')
+                print(f'{recursos.nombre + 'no deberia ir en este viaje. '+ mssg} ❌')
                 return False
     return True
 
@@ -134,7 +133,7 @@ def verificador_restricciones_tuplas(evento): ###chequea especificamente las res
     
     for idx, tupla_restriccion in enumerate(evento.Restriction_recursos_pares):  
         if set(tupla_restriccion) <= set(lista_nombres_recursos):  ### comparo si la tupla restringida esta dentro de los nombres
-            print(f'{dividir_lista_str(tupla_restriccion)} no pueden estar juntos, {evento.message[idx]}')
+            print(f'{dividir_lista_str(tupla_restriccion)} no pueden estar juntos, {evento.message[idx]}❌')
             return False
     return True
 
@@ -146,17 +145,17 @@ def verificador_necesarias (evento): ###chquea si cumple con los recursos necesa
 
     if set(evento.Needs) <= set(lista_nombres_recursos): ### verifica si las necesidades estan dentro de los recursos
         return True
-    print('Te faltan recursos necesarios para empezar el evento.')
+    print('Te faltan recursos necesarios para empezar el evento.❌')
     return False
 
 def verificador_horarios_adecuados (evento): ###chequea si esta en el intervalo de tiempo en el que se puede iniciar este evento
     tiempo = evento.fecha.time()
     if tiempo < evento.Restriction_hour[0]: 
-        print('Estas intentando hacerlo muy temprano. No madruges tanto.')
+        print('Estas intentando hacerlo muy temprano. No madruges tanto.🕐')
         print(f'Propon el mismo evento a partir de las {evento.Restriction_hour[0]}')
         return False
     elif tiempo > evento.Restriction_hour[1]:
-        print('Estas intentando hacerlo demasiado tarde. Mejor duerme a esa hora.')
+        print('Estas intentando hacerlo demasiado tarde. Mejor duerme a esa hora.🕝')
         print(f'Propon el mismo evento antes de las {evento.Restriction_hour[1]}')
         return False
     return True
@@ -206,10 +205,10 @@ def recursos_saludables (evento):  ### verificar que todos los recursos estan en
     if evento.name != 'Descanso pagado a los trabajadores' and evento.name != 'Mantenimiento de Vehiculos':
         for recurso in evento.Recursos:
             if recurso.usos == 0:
-                print(f'El Recurso {recurso.nombre} se encuentra roto, necesitas llevarlo a "Mantenimiento de Vehiculos".')
+                print(f'El Recurso {recurso.nombre} se encuentra roto, necesitas llevarlo a "Mantenimiento de Vehiculos".❌')
                 return False
             elif recurso.energia == 0:
-                print(f'El compannero {recurso.nombre} no tiene energia, debes darle un merecido descanso.')
+                print(f'El compañero {recurso.nombre} no tiene energia, debes darle un merecido descanso.❌')
                 return False
     return True
 

@@ -7,6 +7,8 @@
 
 - Tus vehículos (🚌) y personas (👨‍🔧) según los usas necesitan mantenimiento y descanso respectivamente, cuida de tus recursos. Cada uno constara de un indicador de (energía/usos)⚡ que te diria el estado de este.
 
+![imagen](capturas\Console2.png)
+
 - ⭕No se permitirá usar recursos de exclusión mutua o recursos que en el evento no estén permitidos, según el evento estas restricciones varian. 
 
 - ⭕No se podrá realizar eventos en horarios inoportunos, por lo tanto cada evento tendrá un horario de funcionamiento para poder comenzarse.
@@ -29,6 +31,9 @@
 
 -	Recursos rotos o agotados ❗❗:
     *	Visualiza los recursos que necesitan urgente mantenimiento o descanso. 😴
+
+ 
+    ![imagen](capturas\Console.png)
 
 ## Eventos 🎫:
 ### Cada evento posee estas características:
@@ -57,10 +62,11 @@
 
 2.	Ejecutar el archivo main.py .
 
-## Informacion de contacto:
+3. Crear su cuenta o emplear el archivo .json 'Marlon.json' de prueba.
+
+## Informacion de contacto📭:
 * #### Email: `macronymous@gmail.com`
 
 * #### Telegram: `@Cradles0`
 
 -------
-

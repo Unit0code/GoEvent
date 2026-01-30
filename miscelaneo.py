@@ -44,27 +44,27 @@ def clean(): ###limpia la pantalla
     os.system('cls')
 
 def barra_de_progreso(): ###por hacer algo chulo
-    a = '.'
+    a = '🚌'
     for i in range(2):
         for j in range(7):
-            print(a * j, end = '\r')
+            print(a*j, end = '\r')
             time.sleep(0.3)
-        print('           ', end= '\r')
+        print('                              ', end= '\r')
 
 def mostrar_recursos(recursos_disponibles, user: User):
     clean()
     print('--------------------------------')
     for idx, recurso in enumerate(recursos_disponibles):  ### veo todos los recursos
-        print(f'{idx + 1}. {recurso.nombre}:   categoria -> {recurso.categoria}, estado -> {recurso.estado}')
+        print(f'📎{idx + 1}. {recurso.nombre}:   categoria -> {recurso.categoria}, estado -> {recurso.estado}')
         if recurso.categoria == 'Vehiculo':
-            print(f'Usos restantes: {recurso.usos}')
+            print(f'Usos restantes: {recurso.usos}🚌🔧')
         else:
-            print(f'Energia: {recurso.energia}')
+            print(f'Energia: {recurso.energia}⚡')
         ver, horarios = check_uso(recurso, user.events)
         if ver:
-            print('El recurso no estara disponible en los horarios: ')
+            print('\n📑El recurso no estara disponible en los horarios: ')
             for hora_i, hora_f in horarios:
-                print(f'**{hora_i}   <->   **{hora_f}   ')
+                print(f'**⏳{hora_i}   <->   **⌛{hora_f}   ')
         print('')
     print('')
 
@@ -91,7 +91,7 @@ def verificador_estado_eventos (user: User):
     for idx, eventos in enumerate(user.events):  
         if eventos.Finish_date < fecha_hoy: ###chequeo si la fecha ya es pasada
             eventos_expirados.append(eventos) ###La agrego a eventos expirados
-            print(f'Expiro {eventos.name}.')
+            print(f'Expiro {eventos.name}.💢')
 
             if eventos.name != 'Mantenimiento de Vehiculos' and eventos.name != 'Descanso pagado a los trabajadores':
                 for recurso in eventos.Recursos: ### analizare que recursos se usaron para descontar a energia o uso
@@ -107,7 +107,7 @@ def verificador_estado_eventos (user: User):
                     recursos_renovados.append(recurso)
     
     if not eventos_expirados: ###si la lista esta vacia solo regresara False
-        print('No ha expirado ningun evento.')
+        print('No ha expirado ningun evento.❌')
         return user
     
     for evento in eventos_expirados:

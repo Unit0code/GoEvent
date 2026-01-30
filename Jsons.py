@@ -45,7 +45,7 @@ def cargar_json (path : str, recursos_disponibles):
         data_user = path_user.read_text()
     except FileNotFoundError:
         print('')
-        print(f"El archivo con direccion {path_user} no existe.") ###Si el archivo no existe
+        print(f"El archivo con direccion {path_user} no existe.❌") ###Si el archivo no existe
         return False, recursos_disponibles
     else:
         data_user = json.loads(data_user)
