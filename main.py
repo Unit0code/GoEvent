@@ -11,6 +11,7 @@ import time
 import Eliminar
 import miscelaneo
 import recursos_dannados
+import Buscar_hueco
 
 name_user = ''
 Recursos_disponibles = Recursos.Inicializador_Recursos() #carga recursos por defecto
@@ -24,9 +25,10 @@ def main(Recursos_disponibles, Usuario): ### una vez cargada las cuentas, el usu
         print('4. Ver los Recursos y su disponibilidad.👀')
         print('5. Actualizar Agenda.🔄')
         print('6. Ver los Recursos rotos o agotados.👀')
-        print('7. Salir al menu principal.🔙')
+        print('7. Buscar Hueco para evento.🔎')
+        print('8. Salir al menu principal.🔙')
 
-        option = miscelaneo.try_option(7)
+        option = miscelaneo.try_option(8)
         if option == 1: ### Agrega eventos como al usuario le plazca
             print('Tienes para agregar:')
             Agregar.printeo_opciones_eventos() ### printea las opciones
@@ -64,7 +66,11 @@ def main(Recursos_disponibles, Usuario): ### una vez cargada las cuentas, el usu
             miscelaneo.clean()
             Usuario = recursos_dannados.recursos_agotados(Recursos_disponibles, Usuario)
 
-        elif option == 7: ### salir al menu principal
+        elif option == 7:### Buscar hueco para un evento con recursos en especifico
+            miscelaneo.clean()
+            Buscar_hueco.buscar_hueco(Usuario, Recursos_disponibles)
+
+        elif option == 8: ### salir al menu principal
             print('Primero, guardemos el perfil, para asegurarnos de que no se pierda la info.📩')
             Jsons.guardar_json(Usuario, Recursos_disponibles)
             miscelaneo.barra_de_progreso()

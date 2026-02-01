@@ -12,6 +12,7 @@ from miscelaneo import clean, try_option
 def eliminar_eventos (user: User): ###eliminara un evento de los agregados en el atributo eventos del user
     clean()
     eventos_no_iniciados = verificador_inicio(user.events)   ### verifica los eventos aun no iniciados
+    print('------------------')
     for idx, evento in enumerate(eventos_no_iniciados):
         print(f'📎{idx + 1}. {evento.name}:    ⏳fecha de inicio -> {evento.fecha} \n    ⌛fecha de finalizacion -> {evento.Finish_date}')
         print('📑Recursos:')

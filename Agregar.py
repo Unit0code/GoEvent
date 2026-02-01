@@ -122,7 +122,7 @@ def verificador_restricciones(evento): ### chequea especificamente las restricci
     for recursos in evento.Recursos:
         for restr, mssg in evento.Restriction_recursos.items(): ###ve las restricciones que hay y si coinciden con los nombre
             if recursos.nombre == restr:                        ### de los recursos
-                print(f'{recursos.nombre + 'no deberia ir en este viaje. '+ mssg} ❌')
+                print(f'{recursos.nombre + ' no deberia ir en este viaje. '+ mssg} ❌')
                 return False
     return True
 
