@@ -7,6 +7,7 @@ import Events
 import time
 import os
 import copy
+import platform
 
 def recomendador_cuentas (): ### lee los archivos en la carpeta del proyecto y ve cuales son los .json 
     ruta_relativa = './'
@@ -41,7 +42,11 @@ def try_option (max, min = 1): ###Para los errores que pudiera generar el int(in
 
 def clean(): ###limpia la pantalla
     time.sleep(0.2)
-    os.system('cls')
+    sistema = platform.system()
+    if sistema == 'Windows':
+        os.system('cls')
+    else:
+        os.system('clear')
 
 def barra_de_progreso(): ###por hacer algo chulo
     a = '🚌'
